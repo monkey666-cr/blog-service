@@ -1,7 +1,13 @@
 package global
 
-import "blog-service/pkg/setting"
+import (
+	"blog-service/pkg/logger"
+	"blog-service/pkg/setting"
+)
 
 var (
-	ServerSetting *setting.ServerSetting
+	ServerSetting *setting.ServerSettingS
+	AppSetting    *setting.AppSettingS
+	EmailSetting  *setting.EmailSettingS
+	Logger        *logger.Logger
 )

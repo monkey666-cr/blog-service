@@ -3,3 +3,18 @@ Server:
   HttpPort: 8000
   ReadTimeout: 60
   WriteTimeout: 60
+
+APP:
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: xxx
+  Password: xxx
+  IsSSL: true
+  From: xxx
+  To:
+    - xxx

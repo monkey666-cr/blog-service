@@ -3,10 +3,13 @@ package main
 import (
 	"blog-service/global"
 	"blog-service/internal/routers"
+	"blog-service/pkg/logger"
 	"blog-service/pkg/setting"
+	"blog-service/pkg/tracer"
 	"context"
 	"flag"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 	"log"
 	"net/http"
 	"os"
@@ -29,6 +32,12 @@ func init() {
 	}
 	if err := setupSetting(); err != nil {
 		log.Fatalf("init.setupSetting err: %v", err)
+	}
+	if err := setupLogger(); err != nil {
+		log.Fatalf("init.setupLogger err: %v", err)
+	}
+	if err := setupTracer(); err != nil {
+		log.Fatalf("init.setupTracer err: %v", err)
 	}
 }
 
@@ -84,6 +93,14 @@ func setupSetting() error {
 		return err
 	}
 
+	if err = s.ReadSection("App", &global.AppSetting); err != nil {
+		return err
+	}
+
+	if err = s.ReadSection("Email", &global.EmailSetting); err != nil {
+		return err
+	}
+
 	global.ServerSetting.ReadTimeout *= time.Second
 	global.ServerSetting.WriteTimeout *= time.Second
 
@@ -94,5 +111,27 @@ func setupSetting() error {
 		global.ServerSetting.RunMode = runMode
 	}
 
+	return nil
+}
+
+func setupLogger() error {
+	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
+	global.Logger = logger.NewLogger(&lumberjack.Logger{
+		Filename:   fileName,
+		MaxSize:    500,
+		MaxAge:     10,
+		MaxBackups: 1024,
+		LocalTime:  true,
+	}, "", log.LstdFlags).WithCaller(2)
+
+	return nil
+}
+
+func setupTracer() error {
+	jaegerTracer, _, err := tracer.NewJaegerTracer("blog-service", "192.168.119.128:6831")
+	if err != nil {
+		return err
+	}
+	global.Tracer = jaegerTracer
 	return nil
 }

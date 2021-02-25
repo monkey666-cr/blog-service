@@ -2,11 +2,27 @@ package setting
 
 import "time"
 
-type ServerSetting struct {
+type ServerSettingS struct {
 	RunMode      string
 	HttpPort     string
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
+}
+
+type AppSettingS struct {
+	LogSavePath string
+	LogFileName string
+	LogFileExt  string
+}
+
+type EmailSettingS struct {
+	Host     string
+	Port     int
+	IsSSL    bool
+	UserName string
+	Password string
+	From     string
+	To       []string
 }
 
 var sections = make(map[string]interface{})
