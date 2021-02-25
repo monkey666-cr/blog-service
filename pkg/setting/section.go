@@ -15,6 +15,19 @@ type AppSettingS struct {
 	LogFileExt  string
 }
 
+type DatabaseSettingS struct {
+	DBType        string
+	UserName      string
+	Password      string
+	Host          string
+	DBName        string
+	TablePrefix   string
+	Charset       string
+	ParseTime     bool
+	MaxIdleConnes int
+	MaxOpenConnes int
+}
+
 type EmailSettingS struct {
 	Host     string
 	Port     int
