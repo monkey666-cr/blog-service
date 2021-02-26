@@ -1,6 +1,7 @@
 package app
 
 import (
+	"blog-service/pkg/errcode"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -42,9 +43,9 @@ func (r *Response) ToResponseList(list interface{}, totalRows int) {
 	})
 }
 
-func (r *Response) ToErrorResponse() {
-	response := gin.H{"code": "", "msg": ""}
-	details := ""
+func (r *Response) ToErrorResponse(err *errcode.Error) {
+	response := gin.H{"code": err.Code(), "msg": err.Msg()}
+	details := err.Details()
 	if len(details) > 0 {
 		response["details"] = details
 	}
