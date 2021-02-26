@@ -2,13 +2,12 @@ package app
 
 import (
 	"blog-service/global"
-	"strconv"
-
+	"blog-service/pkg/convert"
 	"github.com/gin-gonic/gin"
 )
 
 func GetPage(c *gin.Context) int {
-	page, _ := strconv.Atoi(c.Query("page"))
+	page := convert.StrTo(c.Query("page")).MustInt()
 	if page <= 0 {
 		return 1
 	}
@@ -16,7 +15,7 @@ func GetPage(c *gin.Context) int {
 }
 
 func GetPageSize(c *gin.Context) int {
-	pageSize, _ := strconv.Atoi(c.Query("page_size"))
+	pageSize := convert.StrTo(c.Query("page_size")).MustInt()
 	if pageSize <= 0 {
 		return global.AppSetting.DefaultPageSize
 	}

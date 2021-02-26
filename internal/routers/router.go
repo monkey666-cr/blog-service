@@ -18,11 +18,16 @@ func NewRouter() *gin.Engine {
 	}
 
 	r.Use(middleware.Tracing())
+	r.Use(middleware.Translations())
 
 	demo := v1.NewDemo()
+	article := v1.NewArticle()
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.GET("/ping", demo.Ping)
+
+		// 获取指定文章
+		apiv1.GET("/article/:id", article.Get)
 	}
 	return r
 }
