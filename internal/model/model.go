@@ -45,6 +45,10 @@ func NewDBEngine(databaseSetting *setting.DatabaseSettingS) (*gorm.DB, error) {
 		db.Logger.LogMode(logger.Info)
 	}
 
+	idb, _ := db.DB()
+	idb.SetMaxIdleConns(databaseSetting.MaxIdleConnes)
+	idb.SetMaxOpenConns(databaseSetting.MaxOpenConnes)
+
 	return db, nil
 }
 

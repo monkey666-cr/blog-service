@@ -28,5 +28,14 @@ func (a Article) Get(c *gin.Context) {
 		return
 	}
 
+	svc := service.New(c.Request.Context())
+	article, err := svc.GetArticle(&param)
+	if err != nil {
+		global.Logger.Errorf(c, "svc.GetArticle err: %v", err)
+		response.ToErrorResponse(errcode.ErrorGetArticleFail)
+		return
+	}
+	response.ToResponse(article)
+
 	return
 }

@@ -27,7 +27,7 @@ func NewRouter() *gin.Engine {
 		apiv1.GET("/ping", demo.Ping)
 
 		// 获取指定文章
-		apiv1.GET("/article/:id", article.Get)
+		apiv1.GET("/articles/:id", article.Get)
 	}
 	return r
 }
