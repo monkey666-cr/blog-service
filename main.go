@@ -150,5 +150,10 @@ func setupDBEngine() error {
 		return err
 	}
 
+	// 初始化表
+	if err = model.MysqlTables(global.DBEngine); err != nil {
+		return err
+	}
+
 	return nil
 }

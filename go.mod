@@ -3,9 +3,9 @@ module blog-service
 go 1.15
 
 require (
+	github.com/HdrHistogram/hdrhistogram-go v1.0.1 // indirect
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/gin-gonic/gin v1.6.3
-	github.com/mattn/go-sqlite3 v1.14.6 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/spf13/viper v1.7.1
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
@@ -14,6 +14,5 @@ require (
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.0.4
-	gorm.io/driver/sqlite v1.1.4 // indirect
 	gorm.io/gorm v1.20.12
 )
